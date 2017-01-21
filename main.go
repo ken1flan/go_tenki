@@ -3,5 +3,10 @@ package main
 import fmt "fmt"
 
 func main() {
-	fmt.Printf("☀️\n")
+	var weather_string = getWeatherString()
+	fmt.Printf(weather_string)
+}
+
+func getWeatherString() string {
+	return "☀️\n"
 }

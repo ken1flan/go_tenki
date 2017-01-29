@@ -1,20 +1,19 @@
 package weather
 
 import (
-	json "encoding/json"
-	fmt "fmt"
+	"encoding/json"
+	"fmt"
 	"net/http"
-	os "os"
+	"os"
 )
 
-type WetherForecast map[string]interface{}
+type WeatherForecast map[string]interface{}
 
 func GetWeatherString() string {
 	weather_forecast, err := getWeatherForecast()
 	if err != nil {
 		return "💀\n"
 	}
-	fmt.Printf("%v\n", weather_forecast)
 
 	weather_mark := map[int]string{
 		// Thunderstorm
@@ -105,7 +104,7 @@ func GetWeatherString() string {
 	return weather_mark[weather_id]
 }
 
-func getWeatherForecast() (weather_forecast WetherForecast, err error) {
+func getWeatherForecast() (weather_forecast WeatherForecast, err error) {
 	api_key := os.Getenv("OPENWEATHERMAP_API_KEY")
 	zip_code := os.Getenv("OPENWEATHERMAP_ZIP")
 	country := os.Getenv("OPENWEATHERMAP_COUNTRY")

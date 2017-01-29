@@ -6,4 +6,5 @@ go_tenki is a CLI application of weather forecast.
 ```
 $ go_tenki
 ☀️
+☁️
 ```

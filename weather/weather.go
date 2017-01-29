@@ -100,15 +100,17 @@ func GetWeatherString() string {
 	}
 
 	weather_id := int(weather_forecast["weather"].([]interface{})[0].(map[string]interface{})["id"].(float64))
+	temperature := weather_forecast["main"].(map[string]interface{})["temp"].(float64)
+	weather_string := fmt.Sprintf("%s %.1f℃", weather_mark[weather_id], temperature)
 
-	return weather_mark[weather_id]
+	return weather_string
 }
 
 func getWeatherForecast() (weather_forecast WeatherForecast, err error) {
 	api_key := os.Getenv("OPENWEATHERMAP_API_KEY")
 	zip_code := os.Getenv("OPENWEATHERMAP_ZIP")
 	country := os.Getenv("OPENWEATHERMAP_COUNTRY")
-	url := fmt.Sprintf("http://api.openweathermap.org/data/2.5/weather?zip=%s,%s&appid=%s", zip_code, country, api_key)
+	url := fmt.Sprintf("http://api.openweathermap.org/data/2.5/weather?zip=%s,%s&appid=%s&units=metric", zip_code, country, api_key)
 	resp, err := http.Get(url)
 	if err != nil {
 		return nil, err

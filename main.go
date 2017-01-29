@@ -1,7 +1,12 @@
 package main
 
-import fmt "fmt"
+import (
+	fmt "fmt"
+
+	"./weather"
+)
 
 func main() {
-	fmt.Printf("☀️\n")
+	var weather_string = weather.GetWeatherString()
+	fmt.Printf(weather_string)
 }

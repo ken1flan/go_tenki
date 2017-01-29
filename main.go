@@ -2,11 +2,9 @@ package main
 
 import (
 	fmt "fmt"
-
-	"./weather"
 )
 
 func main() {
-	var weather_string = weather.GetWeatherString()
+	var weather_string = GetWeatherString()
 	fmt.Printf(weather_string)
 }

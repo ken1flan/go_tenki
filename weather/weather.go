@@ -121,6 +121,6 @@ func getWeatherForecast() (weather_forecast WeatherForecast, err error) {
 	if err := dec.Decode(&weather_forecast); err != nil {
 		return nil, err
 	}
-	fmt.Printf("%v", weather_forecast)
+
 	return weather_forecast, nil
 }

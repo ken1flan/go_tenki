@@ -7,15 +7,17 @@ import (
 	"os"
 )
 
+// WeatherForecast is Weather Forecast Data
 type WeatherForecast map[string]interface{}
 
+// GetWeatherString for getting weather forecast summary string
 func GetWeatherString() string {
-	weather_forecast, err := getWeatherForecast()
+	weatherForecast, err := getWeatherForecast()
 	if err != nil {
 		return "💀\n"
 	}
 
-	weather_mark := map[int]string{
+	weatherMark := map[int]string{
 		// Thunderstorm
 		200: "⚡️☂️",   // thunderstorm with light rain
 		201: "⚡️☂️",   // thunderstorm with rain
@@ -99,18 +101,18 @@ func GetWeatherString() string {
 		962: "🌪☂️",  // hurricane
 	}
 
-	weather_id := int(weather_forecast["weather"].([]interface{})[0].(map[string]interface{})["id"].(float64))
-	temperature := weather_forecast["main"].(map[string]interface{})["temp"].(float64)
-	weather_string := fmt.Sprintf("%s %.1f℃", weather_mark[weather_id], temperature)
+	weatherID := int(weatherForecast["weather"].([]interface{})[0].(map[string]interface{})["id"].(float64))
+	temperature := weatherForecast["main"].(map[string]interface{})["temp"].(float64)
+	weatherString := fmt.Sprintf("%s %.1f℃", weatherMark[weatherID], temperature)
 
-	return weather_string
+	return weatherString
 }
 
-func getWeatherForecast() (weather_forecast WeatherForecast, err error) {
-	api_key := os.Getenv("OPENWEATHERMAP_API_KEY")
-	zip_code := os.Getenv("OPENWEATHERMAP_ZIP")
+func getWeatherForecast() (weatherForecast WeatherForecast, err error) {
+	apiKey := os.Getenv("OPENWEATHERMAP_API_KEY")
+	zipCode := os.Getenv("OPENWEATHERMAP_ZIP")
 	country := os.Getenv("OPENWEATHERMAP_COUNTRY")
-	url := fmt.Sprintf("http://api.openweathermap.org/data/2.5/weather?zip=%s,%s&appid=%s&units=metric", zip_code, country, api_key)
+	url := fmt.Sprintf("http://api.openweathermap.org/data/2.5/weather?zip=%s,%s&appid=%s&units=metric", zipCode, country, apiKey)
 	resp, err := http.Get(url)
 	if err != nil {
 		return nil, err
@@ -118,9 +120,9 @@ func getWeatherForecast() (weather_forecast WeatherForecast, err error) {
 	defer resp.Body.Close()
 
 	dec := json.NewDecoder(resp.Body)
-	if err := dec.Decode(&weather_forecast); err != nil {
+	if err := dec.Decode(&weatherForecast); err != nil {
 		return nil, err
 	}
 
-	return weather_forecast, nil
+	return weatherForecast, nil
 }

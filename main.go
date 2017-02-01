@@ -5,6 +5,6 @@ import (
 )
 
 func main() {
-	var weather_string = GetWeatherString()
-	fmt.Printf(weather_string)
+	var weatherString = GetWeatherString()
+	fmt.Println(weatherString)
 }
